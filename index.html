@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cosmic Voyager - Animated Space Poster</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Exo 2', sans-serif;
+            overflow: hidden;
+            background: #000;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        .poster-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            background: radial-gradient(ellipse at center, #1a1a2e 0%, #16213e 50%, #0f0f23 100%);
+        }
+
+        /* Animated Background Stars */
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite alternate;
+        }
+
+        .star:nth-child(1) { top: 20%; left: 10%; width: 2px; height: 2px; animation-delay: 0s; }
+        .star:nth-child(2) { top: 30%; left: 80%; width: 1px; height: 1px; animation-delay: 1s; }
+        .star:nth-child(3) { top: 60%; left: 20%; width: 3px; height: 3px; animation-delay: 2s; }
+        .star:nth-child(4) { top: 80%; left: 70%; width: 2px; height: 2px; animation-delay: 0.5s; }
+        .star:nth-child(5) { top: 15%; left: 60%; width: 1px; height: 1px; animation-delay: 1.5s; }
+        .star:nth-child(6) { top: 70%; left: 90%; width: 2px; height: 2px; animation-delay: 2.5s; }
+        .star:nth-child(7) { top: 40%; left: 5%; width: 1px; height: 1px; animation-delay: 3s; }
+        .star:nth-child(8) { top: 90%; left: 30%; width: 3px; height: 3px; animation-delay: 0.8s; }
+
+        @keyframes twinkle {
+            0% { opacity: 0.3; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* Floating Particles */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(100, 200, 255, 0.6);
+            border-radius: 50%;
+            animation: float 8s infinite linear;
+        }
+
+        .particle:nth-child(1) { top: 10%; left: 15%; width: 4px; height: 4px; animation-delay: 0s; }
+        .particle:nth-child(2) { top: 50%; left: 85%; width: 6px; height: 6px; animation-delay: 2s; }
+        .particle:nth-child(3) { top: 80%; left: 25%; width: 3px; height: 3px; animation-delay: 4s; }
+        .particle:nth-child(4) { top: 30%; left: 75%; width: 5px; height: 5px; animation-delay: 6s; }
+
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Page Styles */
+        .page {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .page.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Hero Page */
+        .hero-page {
+            text-align: center;
+            color: white;
+        }
+
+        .hero-title {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(3rem, 8vw, 8rem);
+            font-weight: 900;
+            margin-bottom: 2rem;
+            background: linear-gradient(45deg, #64b5f6, #42a5f5, #2196f3, #1976d2);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 4s ease-in-out infinite;
+            text-shadow: 0 0 30px rgba(100, 181, 246, 0.5);
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 3vw, 2.5rem);
+            font-weight: 300;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+            animation: fadeInUp 2s ease-out 0.5s both;
+        }
+
+        .hero-tagline {
+            font-size: clamp(0.9rem, 2vw, 1.5rem);
+            font-weight: 400;
+            opacity: 0.7;
+            max-width: 600px;
+            line-height: 1.6;
+            animation: fadeInUp 2s ease-out 1s both;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Content Page */
+        .content-page {
+            padding: 2rem;
+            color: white;
+            max-width: 1200px;
+        }
+
+        .content-title {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #64b5f6;
+            text-shadow: 0 0 20px rgba(100, 181, 246, 0.3);
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .content-section {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(100, 181, 246, 0.2);
+            border-radius: 15px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            animation: slideInFromSide 1s ease-out both;
+        }
+
+        .content-section:nth-child(odd) {
+            animation-delay: 0.2s;
+            transform: translateX(-50px);
+        }
+
+        .content-section:nth-child(even) {
+            animation-delay: 0.4s;
+            transform: translateX(50px);
+        }
+
+        .content-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(100, 181, 246, 0.2);
+            border-color: rgba(100, 181, 246, 0.4);
+        }
+
+        .section-title {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #81c784;
+        }
+
+        .section-content {
+            font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        .section-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .section-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .section-list li:hover {
+            color: #64b5f6;
+            padding-left: 10px;
+        }
+
+        @keyframes slideInFromSide {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .content-page {
+                padding: 1rem;
+            }
+        }
+
+        @media (orientation: portrait) {
+            .hero-title {
+                font-size: clamp(2.5rem, 12vw, 6rem);
+            }
+            
+            .content-title {
+                font-size: clamp(1.8rem, 8vw, 3rem);
+            }
+        }
+
+        /* Glow Effects */
+        .glow-effect {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(100, 181, 246, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            animation: pulse 4s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; }
+            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="poster-container">
+        <!-- Animated Background -->
+        <div class="stars">
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+        </div>
+        
+        <div class="particles">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+        </div>
+
+        <div class="glow-effect"></div>
+
+        <!-- Hero Page -->
+        <div class="page hero-page active" id="heroPage">
+            <h1 class="hero-title">COSMIC VOYAGER</h1>
+            <h2 class="hero-subtitle">Journey Beyond the Stars</h2>
+            <p class="hero-tagline">Embark on an extraordinary adventure through the infinite cosmos, where every star tells a story and every planet holds mysteries waiting to be discovered.</p>
+        </div>
+
+        <!-- Content Page -->
+        <div class="page content-page" id="contentPage">
+            <h2 class="content-title">Exploration Missions</h2>
+            <div class="content-grid">
+                <div class="content-section">
+                    <h3 class="section-title">Deep Space Expeditions</h3>
+                    <div class="section-content">
+                        <ul class="section-list">
+                            <li>Alpha Centauri Survey Mission</li>
+                            <li>Kepler-442b Colonization Project</li>
+                            <li>Andromeda Gateway Initiative</li>
+                            <li>Proxima B Research Station</li>
+                            <li>Titan Mining Operations</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="content-section">
+                    <h3 class="section-title">Advanced Technologies</h3>
+                    <div class="section-content">
+                        <ul class="section-list">
+                            <li>Quantum Propulsion Systems</li>
+                            <li>Neural Interface Navigation</li>
+                            <li>Plasma Shield Generators</li>
+                            <li>Holographic Communication</li>
+                            <li>Zero-Point Energy Cores</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="content-section">
+                    <h3 class="section-title">Cosmic Discoveries</h3>
+                    <div class="section-content">
+                        <ul class="section-list">
+                            <li>Crystalline Life Forms</li>
+                            <li>Temporal Anomaly Zones</li>
+                            <li>Dark Matter Structures</li>
+                            <li>Exotic Element Deposits</li>
+                            <li>Ancient Alien Artifacts</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="content-section">
+                    <h3 class="section-title">Mission Objectives</h3>
+                    <div class="section-content">
+                        <ul class="section-list">
+                            <li>Establish Interstellar Colonies</li>
+                            <li>Map Uncharted Galaxies</li>
+                            <li>Study Exotic Phenomena</li>
+                            <li>Develop New Technologies</li>
+                            <li>Ensure Human Survival</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Auto-rotation between pages
+        let currentPage = 0;
+        const pages = document.querySelectorAll('.page');
+        const totalPages = pages.length;
+
+        function rotatePage() {
+            // Remove active class from current page
+            pages[currentPage].classList.remove('active');
+            
+            // Move to next page
+            currentPage = (currentPage + 1) % totalPages;
+            
+            // Add active class to new page
+            pages[currentPage].classList.add('active');
+        }
+
+        // Auto-rotate every 5 seconds
+        setInterval(rotatePage, 5000);
+
+        // Add dynamic particle generation
+        function createDynamicParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = '100%';
+            particle.style.width = (Math.random() * 4 + 2) + 'px';
+            particle.style.height = particle.style.width;
+            particle.style.animationDuration = (Math.random() * 6 + 4) + 's';
+            
+            document.querySelector('.particles').appendChild(particle);
+            
+            // Remove particle after animation
+            setTimeout(() => {
+                particle.remove();
+            }, 10000);
+        }
+
+        // Generate new particles periodically
+        setInterval(createDynamicParticle, 2000);
+
+        // Add responsive handling
+        function handleResize() {
+            const container = document.querySelector('.poster-container');
+            const isPortrait = window.innerHeight > window.innerWidth;
+            
+            if (isPortrait) {
+                container.style.background = 'radial-gradient(ellipse at center, #1a1a2e 0%, #16213e 60%, #0f0f23 100%)';
+            } else {
+                container.style.background = 'radial-gradient(ellipse at center, #1a1a2e 0%, #16213e 50%, #0f0f23 100%)';
+            }
+        }
+
+        window.addEventListener('resize', handleResize);
+        handleResize(); // Initial call
+    </script>
+</body>
+</html>
